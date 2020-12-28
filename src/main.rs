@@ -1,6 +1,6 @@
-extern crate structopt;
 extern crate rand;
 extern crate regex;
+extern crate structopt;
 
 use rand::thread_rng;
 use rand::Rng;
@@ -19,10 +19,10 @@ struct Opt {
     number: u32,
     #[structopt(short, long)]
     chars: String,
-    #[structopt(long = "prefix")]
+    #[structopt(long)]
     prefix: Option<String>,
-    #[structopt(long = "surfix")]
-    surfix: Option<String>,
+    #[structopt(long)]
+    suffix: Option<String>,
 }
 
 fn main() -> Result<(), Box<dyn error::Error>> {
@@ -41,6 +41,15 @@ fn main() -> Result<(), Box<dyn error::Error>> {
             let index = rng.gen_range(0..group.len());
             result = result + group.get(index).unwrap();
         }
+
+        if let Some(v) = &opt.prefix {
+            result = format!("{}{}", v, result);
+        }
+
+        if let Some(v) = &opt.suffix {
+            result = format!("{}{}", result, v);
+        }
+
         println!("{}", result);
     }
     Ok(())

@@ -81,5 +81,4 @@ pub fn decode_hex(s: &str) -> Result<Vec<u8>, ParseIntError> {
 }
 
 #[cfg(test)]
-mod tests {
-}
+mod tests {}
